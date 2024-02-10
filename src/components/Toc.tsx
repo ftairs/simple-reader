@@ -7,7 +7,7 @@ import {ViewerContext} from "../store/ViewerContext";
 import getChapterNames from "../utils/getChapterNames";
 import {useNavigate} from "react-router-dom";
 
-function Toc() {
+function Toc({externalAction}: any) {
     const viewerContext = useContext(ViewerContext);
     const [tocBook, setTocBook] = useState<string>(viewerContext.bookId);
     const navigate = useNavigate();
@@ -21,22 +21,24 @@ function Toc() {
     const handleChapterClick = (index: number) => {
         viewerContext.updateBookId(tocBook);
         viewerContext.updateStoryIndex(index);
+        if (externalAction) {
+            externalAction();
+        }
+        window.scrollTo(0, 0);
         navigate('/viewer');
     }
 
     return (
-
         <div>
-            {/*Current viewing Book ID: {viewerContext.bookId} - Selected Story: {viewerContext.storyIndex} - toc*/}
-            {/*book: {tocBook} -*/}
             <Select onChange={handleSelectChange}>
                 {books.map((item: BookType) => {
-                    return <option value={item.id}>{item.title}</option>
+                    return <option key={item.id} value={item.id}>{item.title}</option>
                 })}
             </Select>
             <UnorderedList>
                 {chapters && chapters.map((item: any, index: number) => {
                     return <ListItem
+                        key={index + 1}
                         onClick={() => {
                             handleChapterClick(index);
                         }}>{item}</ListItem>

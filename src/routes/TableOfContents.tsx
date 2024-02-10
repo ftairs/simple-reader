@@ -7,7 +7,6 @@ import {ViewerContext, ViewerContextProvider} from "../store/ViewerContext";
 function TableOfContents() {
     return (
         <div>
-            <BasicNav/>
             <Heading>
                 Table of Contents
             </Heading>

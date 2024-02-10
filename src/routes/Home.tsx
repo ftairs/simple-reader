@@ -2,6 +2,7 @@ import React from "react";
 import BasicNav from "../components/BasicNav";
 import {Button, Heading, Text} from "@chakra-ui/react";
 import {useNavigate} from "react-router-dom";
+import TocDrawer from "../components/TocDrawer";
 
 const Home = () => {
 
@@ -13,8 +14,6 @@ const Home = () => {
 
     return (
         <div>
-            <BasicNav/>
-
             <Heading>
                 Simple Reader
                 <small>- E.A. Poe Edition</small>

@@ -8,7 +8,10 @@ export const ViewerContext = createContext({
     updateBookId: (id: any) => {
     },
     updateStoryIndex: (index: any) => {
-
+    },
+    increaseZoomLevel: () => {
+    },
+    decreaseZoomLevel: () => {
     }
 });
 
@@ -29,6 +32,18 @@ export const ViewerContextProvider = ({children}) => {
         },
         updateStoryIndex: (index: any) => {
             setStoryIndex((index))
+        },
+        increaseZoomLevel: () => {
+            if (zoomLevel < 2) {
+                let newZoomLevel = zoomLevel + 0.2;
+                setZoomLevel(parseFloat(newZoomLevel.toFixed(3)))
+            }
+        },
+        decreaseZoomLevel: () => {
+            if (zoomLevel > 0.2) {
+                let newZoomLevel = zoomLevel - 0.2;
+                setZoomLevel(parseFloat(newZoomLevel.toFixed(3)))
+            }
         }
     };
     return <ViewerContext.Provider value={viewerCtx}>
