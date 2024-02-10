@@ -11,9 +11,14 @@ function Toc({ externalAction }: any) {
   const viewerContext = useContext(ViewerContext);
   const [tocBook, setTocBook] = useState<string>(viewerContext.bookId);
   const navigate = useNavigate();
-
   const books = getBooks();
   const chapters = getChapterNames({ storyId: tocBook });
+
+  const [pagination, setPagination] = useState<any>({
+    perPage: 5,
+    currentPage: 1,
+    pageCount: chapters && Math.ceil(chapters.length / 5),
+  });
 
   const handleSelectChange = (val: any) => {
     setTocBook(val.target.value);
@@ -41,22 +46,58 @@ function Toc({ externalAction }: any) {
       </Select>
       <UnorderedList>
         {chapters &&
-          chapters.map((item: any, index: number) => {
-            return (
-              <ListItem
-                key={index + 1}
-                onClick={() => {
-                  handleChapterClick(index);
-                }}
-              >
-                {item}
-              </ListItem>
-            );
-          })}
+          chapters
+            .slice(
+              (pagination.currentPage - 1) * pagination.perPage,
+              pagination.currentPage * pagination.perPage
+            )
+            .map((item: any, index: number) => {
+              return (
+                <ListItem
+                  key={index + 1}
+                  onClick={() => {
+                    handleChapterClick(index);
+                  }}
+                >
+                  {item}
+                </ListItem>
+              );
+            })}
       </UnorderedList>
       <Flex>
-        <Box flex={1}>Prev</Box>
-        <Box flex={1}>Next</Box>
+        {pagination.currentPage > 1 && (
+          <Box
+            flex={1}
+            onClick={() => {
+              if (pagination.currentPage > 1) {
+                setPagination({
+                  ...pagination,
+                  currentPage: pagination.currentPage - 1,
+                });
+              }
+            }}
+          >
+            Prev
+          </Box>
+        )}
+        <Box>
+          {pagination.currentPage} / {pagination.pageCount}
+        </Box>
+        {pagination.currentPage < pagination.pageCount && (
+          <Box
+            flex={1}
+            onClick={() => {
+              if (pagination.currentPage < pagination.pageCount) {
+                setPagination({
+                  ...pagination,
+                  currentPage: pagination.currentPage + 1,
+                });
+              }
+            }}
+          >
+            Next
+          </Box>
+        )}
       </Flex>
     </div>
   );
