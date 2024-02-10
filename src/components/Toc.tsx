@@ -11,6 +11,7 @@ function Toc({ externalAction }: any) {
   const viewerContext = useContext(ViewerContext);
   const [tocBook, setTocBook] = useState<string>(viewerContext.bookId);
   const navigate = useNavigate();
+
   const books = getBooks();
   const chapters = getChapterNames({ storyId: tocBook });
 
@@ -21,11 +22,23 @@ function Toc({ externalAction }: any) {
   });
 
   const handleSelectChange = (val: any) => {
+    setPagination({
+      perPage: 5,
+      currentPage: 1,
+      pageCount: chapters && Math.ceil(chapters.length / 5),
+    });
     setTocBook(val.target.value);
   };
   const handleChapterClick = (index: number) => {
+    let usableIndex = pagination.perPage * (pagination.currentPage - 1) + index;
+    console.log(
+      usableIndex,
+      pagination.perPage * pagination.currentPage + index
+    );
+
     viewerContext.updateBookId(tocBook);
-    viewerContext.updateStoryIndex(index);
+    viewerContext.updateStoryIndex(usableIndex);
+
     if (externalAction) {
       externalAction();
     }
