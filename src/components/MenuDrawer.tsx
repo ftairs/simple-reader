@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Drawer,
   DrawerOverlay,
@@ -7,51 +6,69 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
-  Button,
   useDisclosure,
   Box,
   UnorderedList,
   ListItem,
+  Link as ChakraLink,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { TiThMenu } from "react-icons/ti";
+import {
+  TiArrowRight,
+  TiBook,
+  TiEye,
+  TiHome,
+  TiSocialGithub,
+  TiThMenu,
+} from "react-icons/ti";
 
-function MenuDrawer({}) {
+function MenuDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const buttonBackground = useColorModeValue("gray.300", "blackAlpha.500");
 
   const menu = [
     {
       label: "Home",
       to: "/",
+      icon: <TiHome />,
     },
     {
       label: "Viewer",
       to: "/viewer",
+      icon: <TiEye />,
     },
     {
       label: "TOC",
       to: "/toc",
+      icon: <TiBook />,
     },
   ];
 
   return (
     <>
       <Box
-        width={10}
-        height={10}
+        width={"46px"}
+        height={"46px"}
         top={4}
         left={0}
-        background={"gray.500"}
+        background={buttonBackground}
         position={"fixed"}
         onClick={onOpen}
         borderRadius={"0 30px 30px 0"}
         transition={"0.3s ease all"}
-        _hover={{ background: "brand.main", left: "-4px", cursor: "pointer" }}
+        _hover={{
+          background: "brand.main",
+          left: "-4px",
+          cursor: "pointer",
+          color: "white",
+        }}
         display={"flex"}
         alignItems={"center"}
         justifyContent={"center"}
+        zIndex={3}
       >
-        <TiThMenu color="white" size={24} />
+        <TiThMenu size={24} />
       </Box>
 
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
@@ -70,27 +87,56 @@ function MenuDrawer({}) {
           </DrawerHeader>
 
           <DrawerBody>
-            {menu.map((item: { label: string; to: string }, index: number) => {
-              return (
-                <UnorderedList
-                  key={index + 1}
-                  onClick={onClose}
-                  margin="0"
-                  listStyleType={"none"}
-                >
-                  <ListItem
-                    fontSize={20}
-                    mb={4}
-                    _hover={{ color: "brand.main" }}
-                  >
-                    <Link to={item.to}>{item.label}</Link>
-                  </ListItem>
-                </UnorderedList>
-              );
-            })}
+            <UnorderedList margin="0" listStyleType={"none"}>
+              {menu.map(
+                (
+                  item: { label: string; to: string; icon: any },
+                  index: number
+                ) => {
+                  return (
+                    <ListItem key={index + 1} marginBottom={4}>
+                      <ChakraLink
+                        onClick={onClose}
+                        fontSize={20}
+                        _hover={{ color: "brand.main" }}
+                      >
+                        <Link
+                          to={item.to}
+                          style={{ display: "flex", alignItems: "center" }}
+                        >
+                          <Box mr={4}>{item.icon}</Box>
+                          {item.label}
+                        </Link>
+                      </ChakraLink>
+                    </ListItem>
+                  );
+                }
+              )}
+            </UnorderedList>
           </DrawerBody>
 
-          <DrawerFooter opacity={0.5}>
+          <DrawerFooter flexDir={"column"}>
+            <Box
+              as={Link}
+              to={"https://github.com/ftairs"}
+              target="_blank"
+              display="flex"
+              alignItems={"center"}
+              background="black"
+              color="white"
+              width="100%"
+              padding={4}
+              mb={4}
+              borderRadius={16}
+            >
+              <Box>
+                <TiSocialGithub size={42} />
+              </Box>
+              <Box flex={1}>View on Github</Box>
+              <Box>
+                <TiArrowRight />
+              </Box>
+            </Box>
             Created by Victor Fuentes - 2024
           </DrawerFooter>
         </DrawerContent>

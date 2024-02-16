@@ -1,7 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
-  UnorderedList,
-  ListItem,
   Select,
   Flex,
   Box,
@@ -9,22 +7,24 @@ import {
   GridItem,
   Grid,
   useToken,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import getBooks from "../utils/getBookData";
-
 import BookType from "../types/BookType";
-import { ViewerContext } from "../store/ViewerContext";
 import getChapterNames from "../utils/getChapterNames";
 import { useNavigate } from "react-router-dom";
+import useViewerStore from "../store/ViewerStore";
 
 function Toc({ externalAction, showCount, compact }: any) {
-  const viewerContext = useContext(ViewerContext);
-  const [tocBook, setTocBook] = useState<string>(viewerContext.bookId);
+  const viewState = useViewerStore((state: any) => state);
+  const [tocBook, setTocBook] = useState<string>(viewState.bookId);
   const navigate = useNavigate();
 
   const books = getBooks();
   const chapters = getChapterNames({ storyId: tocBook });
   const [brandMain] = useToken("colors", ["brand.main"]);
+  const hoverTextColor = useColorModeValue("black", "white");
+  const hoverBgColor = useColorModeValue("gray.100", "blackAlpha.500");
 
   const [pagination, setPagination] = useState<{
     perPage: number;
@@ -46,14 +46,8 @@ function Toc({ externalAction, showCount, compact }: any) {
   };
   const handleChapterClick = (index: number) => {
     let usableIndex = pagination.perPage * (pagination.currentPage - 1) + index;
-    console.log(
-      usableIndex,
-      pagination.perPage * pagination.currentPage + index
-    );
-
-    viewerContext.updateBookId(tocBook);
-    viewerContext.updateStoryIndex(usableIndex);
-
+    viewState.updateBookId(tocBook);
+    viewState.updateStoryIndex(usableIndex);
     if (externalAction) {
       externalAction();
     }
@@ -104,10 +98,12 @@ function Toc({ externalAction, showCount, compact }: any) {
                   paddingY={!compact ? 6 : 2}
                   paddingX={!compact ? 8 : 4}
                   borderRadius={10}
+                  color={hoverTextColor}
                   _hover={{
                     cursor: "pointer",
                     background: "gray.100",
                     fontStyle: "italic",
+                    bg: hoverBgColor,
                   }}
                   display={compact ? "flex" : "block"}
                   alignItems={compact ? "center" : undefined}
@@ -117,6 +113,9 @@ function Toc({ externalAction, showCount, compact }: any) {
                     fontWeight={"bold"}
                     mr={compact ? 2 : 0}
                     opacity={0.5}
+                    _hover={{
+                      color: "brand.main",
+                    }}
                   >
                     {!compact
                       ? `Chapter ${getChapterIndex(index)}`
@@ -158,7 +157,6 @@ function Toc({ externalAction, showCount, compact }: any) {
         )}
 
         <Box flex={1} textAlign={"right"}>
-          {" "}
           {pagination.currentPage < pagination.pageCount && (
             <Button
               variant={"branded"}

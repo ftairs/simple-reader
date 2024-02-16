@@ -41,8 +41,20 @@ export const theme = extendTheme({
       },
       ".js-view": {},
       ".js-view p": {
-        marginBottom: "8px",
+        marginBottom: 8,
         textIndent: "24px",
+      },
+      ".js-view p.center": {
+        textAlign: "center",
+        fontWeight: "bold",
+        marginY: 8,
+      },
+      ".js-view p.poem": {
+        textAlign: "center",
+        fontWeight: "bold",
+        fontStyle: "italic",
+        fontFamily: "serif",
+        marginY: 8,
       },
       ".js-view h3": {
         fontWeight: "bold",

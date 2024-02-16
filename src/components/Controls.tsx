@@ -1,18 +1,19 @@
-import React, { useContext, useState } from "react";
+import { useState } from "react";
 import { Box, useColorMode, useColorModeValue } from "@chakra-ui/react";
-import { ViewerContext } from "../store/ViewerContext";
 import {
   TiAdjustContrast,
   TiArrowDown,
+  TiArrowSortedDown,
   TiArrowUp,
   TiZoomIn,
   TiZoomOut,
 } from "react-icons/ti";
+import useViewerStore from "../store/ViewerStore";
 
 function Controls() {
-  const viewerCtx = useContext(ViewerContext);
-  const { colorMode, toggleColorMode } = useColorMode();
-  const barBg = useColorModeValue("gray.50", "black");
+  const viewerStore = useViewerStore((store: any) => store);
+  const { toggleColorMode } = useColorMode();
+  const barBg = useColorModeValue("gray.100", "black");
   const [hideControls, setHideControls] = useState(false);
 
   const controls = [
@@ -41,41 +42,37 @@ function Controls() {
       label: "Zoom In",
       icon: <TiZoomIn size={32} />,
       action: () => {
-        viewerCtx.increaseZoomLevel();
+        viewerStore.increaseZoomLevel();
       },
     },
     {
       label: "Zoom Out",
       icon: <TiZoomOut size={32} />,
       action: () => {
-        viewerCtx.decreaseZoomLevel();
+        viewerStore.decreaseZoomLevel();
       },
     },
-    // {
-    //     label: 'Autoscroll',
-    //     icon: 'AS',
-    //     action: () => {
-    //
-    //     }
-    // },
   ];
   return (
     <Box
       background={barBg}
+      width={"100%"}
       position={"fixed"}
       left={0}
       bottom={0}
-      width={"100%"}
       zIndex={3}
       display={"flex"}
       paddingY={2}
       justifyContent={"space-around"}
       transform={`translateY(${hideControls ? "100%" : "0%"})`}
       transition={"0.3s ease all"}
+      _hover={{
+        transform: `translateY(${hideControls ? "80%" : "0%"})`,
+      }}
     >
       <Box
-        width={10}
-        height={10}
+        width={"46px"}
+        height={"46px"}
         position={"absolute"}
         left="50%"
         top={-10}
@@ -91,12 +88,19 @@ function Controls() {
         alignItems={"center"}
         justifyContent={"center"}
       >
-        {hideControls && <TiArrowUp size={32} />}
-        {!hideControls && <TiArrowDown size={32} />}
+        <Box
+          transform={`rotate(${hideControls ? "180" : "0"}deg)`}
+          transition={"0.3s ease all"}
+        >
+          <TiArrowSortedDown size={32} />
+        </Box>
+
+        {/* {hideControls ? <TiArrowUp size={32} /> : <TiArrowDown size={32} />} */}
       </Box>
       {controls.map((item) => {
         return (
           <Box
+            key={item.label}
             onClick={item.action}
             display={"flex"}
             alignItems={"center"}
@@ -109,7 +113,6 @@ function Controls() {
             _hover={{ background: "brand.main", color: "white" }}
           >
             <Box>{item.icon}</Box>
-            {/* <Box>{item.label}</Box> */}
           </Box>
         );
       })}

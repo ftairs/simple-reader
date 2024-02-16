@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Drawer,
   DrawerOverlay,
@@ -6,35 +5,41 @@ import {
   DrawerCloseButton,
   DrawerHeader,
   DrawerBody,
-  DrawerFooter,
-  Button,
   useDisclosure,
   Box,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import Toc from "./Toc";
 import { TiBook } from "react-icons/ti";
 
-function TocDrawer({}) {
+function TocDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const buttonBackground = useColorModeValue("gray.300", "blackAlpha.500");
 
   return (
     <>
       <Box
-        width={10}
-        height={10}
+        width={"46px"}
+        height={"46px"}
         top={4}
         right={0}
-        background={"gray.500"}
+        background={buttonBackground}
         position={"fixed"}
         onClick={onOpen}
         borderRadius={"30px 0 0 30px"}
         transition={"0.3s ease all"}
-        _hover={{ background: "brand.main", right: "-4px", cursor: "pointer" }}
+        _hover={{
+          background: "brand.main",
+          right: "-4px",
+          cursor: "pointer",
+          color: "white",
+        }}
         display={"flex"}
         alignItems={"center"}
         justifyContent={"center"}
+        zIndex={3}
       >
-        <TiBook color="white" size={26} />
+        <TiBook size={26} />
       </Box>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size={"lg"}>
         <DrawerOverlay />

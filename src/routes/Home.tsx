@@ -6,7 +6,6 @@ import { useState } from "react";
 const Home = () => {
   const navigate = useNavigate();
   const handleOpenToc = () => {
-    console.log("attempting to open sidebar");
     navigate("/toc");
   };
   const [textHovered, setTextHovered] = useState(false);
@@ -26,7 +25,17 @@ const Home = () => {
         onMouseOut={() => {
           setTextHovered(false);
         }}
+        position={"relative"}
       >
+        <Box
+          width={"100%"}
+          height="100%"
+          position="absolute"
+          top={0}
+          left={0}
+          bgGradient="linear(to-b, black, transparent)"
+          zIndex={2}
+        ></Box>
         <Box
           whiteSpace={"nowrap"}
           position="relative"
@@ -64,7 +73,7 @@ const Home = () => {
           E.A.Poe-E.A.Poe-E.A.Poe-E.A.Poe-E.A.Poe
         </Box>
       </Box>
-      <Container variant={"basic"}>
+      <Container variant={"basic"} pb={10}>
         <Heading mb={4}>
           Simple Reader
           <small>- E.A. Poe Edition</small>
