@@ -30,7 +30,12 @@ function RelatedContent() {
   };
   return (
     <Container variant={"basic"} mb={20}>
-      <Flex width={"100%"} paddingY={10} alignItems={"center"}>
+      <Flex
+        width={"100%"}
+        paddingY={10}
+        alignItems={"center"}
+        display={{ base: "block", lg: "flex" }}
+      >
         <Box flex="1" mr={2}>
           {viewerStore.storyIndex > 0 && (
             <Box padding={0} display={"flex"} alignItems={"center"}>
@@ -52,6 +57,14 @@ function RelatedContent() {
             </Box>
           )}
         </Box>
+        <Box
+          display={{ lg: "none" }}
+          width="100%"
+          marginY={4}
+          height={1}
+          borderRadius={4}
+          background={"blackAlpha.500"}
+        ></Box>
         <Box flex="1" ml={2} textAlign={"right"}>
           {chapterLength && viewerStore.storyIndex < chapterLength - 1 && (
             <Box padding="0" display={"flex"} alignItems={"center"}>
