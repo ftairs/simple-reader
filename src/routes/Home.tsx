@@ -74,8 +74,11 @@ const Home = () => {
         </Box>
       </Box>
       <Container variant={"basic"} pb={10}>
+        <Heading mb={4} fontSize={60}>
           Simple Reader
-          <small>- E.A. Poe Edition</small>
+          <Box fontSize={"md"} color={"brand.main"}>
+            E.A. Poe Edition
+          </Box>
         </Heading>
         <Text mb={4}>
           This reader uses scraped text from Project Gutenberg using{" "}
