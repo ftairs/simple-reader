@@ -1,44 +1,53 @@
-import React, { useContext, useState } from "react";
-import { UnorderedList, ListItem, Select, Flex, Box } from "@chakra-ui/react";
+import React, { useState } from "react";
+import {
+  Select,
+  Flex,
+  Box,
+  Button,
+  GridItem,
+  Grid,
+  useToken,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import getBooks from "../utils/getBookData";
-
 import BookType from "../types/BookType";
-import { ViewerContext } from "../store/ViewerContext";
 import getChapterNames from "../utils/getChapterNames";
 import { useNavigate } from "react-router-dom";
+import useViewerStore from "../store/ViewerStore";
 
-function Toc({ externalAction }: any) {
-  const viewerContext = useContext(ViewerContext);
-  const [tocBook, setTocBook] = useState<string>(viewerContext.bookId);
+function Toc({ externalAction, showCount, compact }: any) {
+  const viewState = useViewerStore((state: any) => state);
+  const [tocBook, setTocBook] = useState<string>(viewState.bookId);
   const navigate = useNavigate();
 
   const books = getBooks();
   const chapters = getChapterNames({ storyId: tocBook });
+  const [brandMain] = useToken("colors", ["brand.main"]);
+  const hoverTextColor = useColorModeValue("black", "white");
+  const hoverBgColor = useColorModeValue("gray.100", "blackAlpha.500");
 
-  const [pagination, setPagination] = useState<any>({
-    perPage: 5,
+  const [pagination, setPagination] = useState<{
+    perPage: number;
+    currentPage: number;
+    pageCount: any;
+  }>({
+    perPage: 6,
     currentPage: 1,
-    pageCount: chapters && Math.ceil(chapters.length / 5),
+    pageCount: chapters && Math.ceil(chapters.length / 6),
   });
 
   const handleSelectChange = (val: any) => {
     setPagination({
-      perPage: 5,
+      perPage: 6,
       currentPage: 1,
-      pageCount: chapters && Math.ceil(chapters.length / 5),
+      pageCount: chapters && Math.ceil(chapters.length / 6),
     });
     setTocBook(val.target.value);
   };
   const handleChapterClick = (index: number) => {
     let usableIndex = pagination.perPage * (pagination.currentPage - 1) + index;
-    console.log(
-      usableIndex,
-      pagination.perPage * pagination.currentPage + index
-    );
-
-    viewerContext.updateBookId(tocBook);
-    viewerContext.updateStoryIndex(usableIndex);
-
+    viewState.updateBookId(tocBook);
+    viewState.updateStoryIndex(usableIndex);
     if (externalAction) {
       externalAction();
     }
@@ -46,9 +55,14 @@ function Toc({ externalAction }: any) {
     navigate("/viewer");
   };
 
+  const getChapterIndex = (index: any) => {
+    const prevCount = (pagination.currentPage - 1) * pagination.perPage;
+    return index + 1 + prevCount;
+  };
+
   return (
-    <div>
-      <Select onChange={handleSelectChange}>
+    <Box width="100%" mb={8}>
+      <Select onChange={handleSelectChange} borderRadius={12} mb={4}>
         {books.map((item: BookType) => {
           return (
             <option key={item.id} value={item.id}>
@@ -57,7 +71,14 @@ function Toc({ externalAction }: any) {
           );
         })}
       </Select>
-      <UnorderedList>
+
+      <Grid
+        templateColumns={`repeat(${compact ? 1 : 2}, ${
+          compact ? "100%" : "50%"
+        })`}
+        gap={4}
+        mb={4}
+      >
         {chapters &&
           chapters
             .slice(
@@ -66,53 +87,94 @@ function Toc({ externalAction }: any) {
             )
             .map((item: any, index: number) => {
               return (
-                <ListItem
+                <GridItem
                   key={index + 1}
                   onClick={() => {
                     handleChapterClick(index);
                   }}
+                  margin="0"
+                  padding="0"
+                  overflowWrap={"break-word"}
+                  paddingY={!compact ? 6 : 2}
+                  paddingX={!compact ? 8 : 4}
+                  borderRadius={10}
+                  color={hoverTextColor}
+                  _hover={{
+                    cursor: "pointer",
+                    background: "gray.100",
+                    fontStyle: "italic",
+                    bg: hoverBgColor,
+                  }}
+                  display={compact ? "flex" : "block"}
+                  alignItems={compact ? "center" : undefined}
                 >
-                  {item}
-                </ListItem>
+                  <Box
+                    fontSize="small"
+                    fontWeight={"bold"}
+                    mr={compact ? 2 : 0}
+                    opacity={0.5}
+                    _hover={{
+                      color: "brand.main",
+                    }}
+                  >
+                    {!compact
+                      ? `Chapter ${getChapterIndex(index)}`
+                      : `Ch.${getChapterIndex(index)}`}
+                  </Box>
+                  <Box fontSize="large">{item}</Box>
+                </GridItem>
               );
             })}
-      </UnorderedList>
-      <Flex>
-        {pagination.currentPage > 1 && (
-          <Box
-            flex={1}
-            onClick={() => {
-              if (pagination.currentPage > 1) {
-                setPagination({
-                  ...pagination,
-                  currentPage: pagination.currentPage - 1,
-                });
-              }
-            }}
-          >
-            Prev
-          </Box>
-        )}
-        <Box>
-          {pagination.currentPage} / {pagination.pageCount}
+      </Grid>
+
+      <Flex alignItems={"center"}>
+        <Box flex="1">
+          {pagination.currentPage > 1 && (
+            <Button
+              variant={"branded"}
+              onClick={() => {
+                if (pagination.currentPage > 1) {
+                  setPagination({
+                    ...pagination,
+                    currentPage: pagination.currentPage - 1,
+                  });
+                }
+              }}
+              whiteSpace={"wrap"}
+            >
+              Prev
+            </Button>
+          )}
         </Box>
-        {pagination.currentPage < pagination.pageCount && (
-          <Box
-            flex={1}
-            onClick={() => {
-              if (pagination.currentPage < pagination.pageCount) {
-                setPagination({
-                  ...pagination,
-                  currentPage: pagination.currentPage + 1,
-                });
-              }
-            }}
-          >
-            Next
+
+        {showCount !== false && (
+          <Box fontSize={20} fontStyle="italic">
+            <Box display={"inline"} color={brandMain}>
+              {pagination.currentPage}
+            </Box>
+            / {pagination.pageCount}
           </Box>
         )}
+
+        <Box flex={1} textAlign={"right"}>
+          {pagination.currentPage < pagination.pageCount && (
+            <Button
+              variant={"branded"}
+              onClick={() => {
+                if (pagination.currentPage < pagination.pageCount) {
+                  setPagination({
+                    ...pagination,
+                    currentPage: pagination.currentPage + 1,
+                  });
+                }
+              }}
+            >
+              Next
+            </Button>
+          )}
+        </Box>
       </Flex>
-    </div>
+    </Box>
   );
 }
 
