@@ -47,7 +47,7 @@ function TocDrawer({}) {
           />
           <DrawerHeader>Table of Contents</DrawerHeader>
           <DrawerBody display="flex" alignItems={"center"}>
-            <Toc externalAction={onClose} columns={1} showCount={false} />
+            <Toc externalAction={onClose} showCount={false} compact />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

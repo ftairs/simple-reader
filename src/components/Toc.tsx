@@ -17,7 +17,7 @@ import { ViewerContext } from "../store/ViewerContext";
 import getChapterNames from "../utils/getChapterNames";
 import { useNavigate } from "react-router-dom";
 
-function Toc({ externalAction, columns, showCount }: any) {
+function Toc({ externalAction, showCount, compact }: any) {
   const viewerContext = useContext(ViewerContext);
   const [tocBook, setTocBook] = useState<string>(viewerContext.bookId);
   const navigate = useNavigate();
@@ -26,7 +26,11 @@ function Toc({ externalAction, columns, showCount }: any) {
   const chapters = getChapterNames({ storyId: tocBook });
   const [brandMain] = useToken("colors", ["brand.main"]);
 
-  const [pagination, setPagination] = useState<any>({
+  const [pagination, setPagination] = useState<{
+    perPage: number;
+    currentPage: number;
+    pageCount: any;
+  }>({
     perPage: 6,
     currentPage: 1,
     pageCount: chapters && Math.ceil(chapters.length / 6),
@@ -57,8 +61,13 @@ function Toc({ externalAction, columns, showCount }: any) {
     navigate("/viewer");
   };
 
+  const getChapterIndex = (index: any) => {
+    const prevCount = (pagination.currentPage - 1) * pagination.perPage;
+    return index + 1 + prevCount;
+  };
+
   return (
-    <Box width="100%">
+    <Box width="100%" mb={8}>
       <Select onChange={handleSelectChange} borderRadius={12} mb={4}>
         {books.map((item: BookType) => {
           return (
@@ -70,8 +79,8 @@ function Toc({ externalAction, columns, showCount }: any) {
       </Select>
 
       <Grid
-        templateColumns={`repeat(${columns ? columns : 2}, ${
-          columns ? 100 / columns + "%" : "50%"
+        templateColumns={`repeat(${compact ? 1 : 2}, ${
+          compact ? "100%" : "50%"
         })`}
         gap={4}
         mb={4}
@@ -92,22 +101,28 @@ function Toc({ externalAction, columns, showCount }: any) {
                   margin="0"
                   padding="0"
                   overflowWrap={"break-word"}
+                  paddingY={!compact ? 6 : 2}
+                  paddingX={!compact ? 8 : 4}
+                  borderRadius={10}
+                  _hover={{
+                    cursor: "pointer",
+                    background: "gray.100",
+                    fontStyle: "italic",
+                  }}
+                  display={compact ? "flex" : "block"}
+                  alignItems={compact ? "center" : undefined}
                 >
                   <Box
-                    paddingY={4}
-                    paddingX={8}
-                    borderRadius={30}
-                    // textAlign={"center"}
-                    boxShadow={`inset 0 0 0 4px ${brandMain}`}
-                    _hover={{
-                      cursor: "pointer",
-                      background: "brand.main",
-                      color: "white",
-                    }}
-                    display="flex"
+                    fontSize="small"
+                    fontWeight={"bold"}
+                    mr={compact ? 2 : 0}
+                    opacity={0.5}
                   >
-                    <Box>{item}</Box> <small>Chapter {index + 1}</small>
+                    {!compact
+                      ? `Chapter ${getChapterIndex(index)}`
+                      : `Ch.${getChapterIndex(index)}`}
                   </Box>
+                  <Box fontSize="large">{item}</Box>
                 </GridItem>
               );
             })}
@@ -134,13 +149,14 @@ function Toc({ externalAction, columns, showCount }: any) {
         </Box>
 
         {showCount !== false && (
-          <Box fontSize={20}>
+          <Box fontSize={20} fontStyle="italic">
             <Box display={"inline"} color={brandMain}>
               {pagination.currentPage}
-            </Box>{" "}
+            </Box>
             / {pagination.pageCount}
           </Box>
         )}
+
         <Box flex={1} textAlign={"right"}>
           {" "}
           {pagination.currentPage < pagination.pageCount && (

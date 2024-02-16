@@ -70,7 +70,8 @@ function Controls() {
       display={"flex"}
       paddingY={2}
       justifyContent={"space-around"}
-      transform={"translateY(100%)"}
+      transform={`translateY(${hideControls ? "100%" : "0%"})`}
+      transition={"0.3s ease all"}
     >
       <Box
         width={10}
@@ -82,10 +83,16 @@ function Controls() {
         background={barBg}
         transform="translateX(-50%)"
         onClick={() => {
-          setHideControls(!setHideControls);
+          setHideControls((prev) => {
+            return !prev;
+          });
         }}
+        display="flex"
+        alignItems={"center"}
+        justifyContent={"center"}
       >
-        X
+        {hideControls && <TiArrowUp size={32} />}
+        {!hideControls && <TiArrowDown size={32} />}
       </Box>
       {controls.map((item) => {
         return (

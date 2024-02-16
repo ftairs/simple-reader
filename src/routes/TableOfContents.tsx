@@ -14,7 +14,9 @@ function TableOfContents() {
       justifyContent={"center"}
       minHeight={"100vh"}
     >
-      <Heading mb={4}>Table of Contents</Heading>
+      <Heading mb={4} textTransform={"uppercase"}>
+        Table of Contents
+      </Heading>
       <Toc />
     </Container>
   );

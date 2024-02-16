@@ -41,7 +41,12 @@ export const theme = extendTheme({
       },
       ".js-view": {},
       ".js-view p": {
-        marginBottom: "4%",
+        marginBottom: "8px",
+        textIndent: "24px",
+      },
+      ".js-view h3": {
+        fontWeight: "bold",
+        marginBottom: "8px",
       },
       ".js-view *:first-child": {
         display: "none",
