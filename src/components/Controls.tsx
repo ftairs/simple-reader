@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Box, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import {
@@ -9,14 +10,14 @@ import {
   TiZoomOut,
 } from "react-icons/ti";
 import useViewerStore from "../store/ViewerStore";
-
+import ControlType from "../types/ControlType";
 function Controls() {
   const viewerStore = useViewerStore((store: any) => store);
   const { toggleColorMode } = useColorMode();
   const barBg = useColorModeValue("gray.100", "black");
   const [hideControls, setHideControls] = useState(false);
 
-  const controls = [
+  const controls : ControlType[] = [
     {
       label: "Scroll Down",
       icon: <TiArrowDown size={32} />,
@@ -50,11 +51,13 @@ function Controls() {
       icon: <TiZoomOut size={32} />,
       action: () => {
         viewerStore.decreaseZoomLevel();
+
       },
     },
   ];
   return (
     <Box
+
       background={barBg}
       width={"100%"}
       position={"fixed"}
@@ -94,8 +97,6 @@ function Controls() {
         >
           <TiArrowSortedDown size={32} />
         </Box>
-
-        {/* {hideControls ? <TiArrowUp size={32} /> : <TiArrowDown size={32} />} */}
       </Box>
       {controls.map((item) => {
         return (
