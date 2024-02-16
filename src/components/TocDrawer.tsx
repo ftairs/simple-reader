@@ -1,45 +1,63 @@
-import React from 'react';
 import {
-    Drawer, DrawerOverlay,
-    DrawerContent,
-    DrawerCloseButton,
-    DrawerHeader,
-    DrawerBody,
-    DrawerFooter,
-    Button,
-    useDisclosure,
-    Box
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  useDisclosure,
+  Box,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import Toc from "./Toc";
+import { TiBook } from "react-icons/ti";
 
-function TocDrawer({}) {
-    const {isOpen, onOpen, onClose} = useDisclosure();
+function TocDrawer() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const buttonBackground = useColorModeValue("gray.300", "blackAlpha.500");
 
-    return (
-        <>
-            <Box width={10} height={10}
-                 top={0}
-                 right={0}
-                 background={"red"}
-                 position={"fixed"}
-                 onClick={onOpen}>TOC</Box>
-            <Drawer
-                isOpen={isOpen}
-                placement='right'
-                onClose={onClose}
-            >
-                <DrawerOverlay/>
-                <DrawerContent>
-                    <DrawerCloseButton/>
-                    <DrawerHeader>header</DrawerHeader>
-
-                    <DrawerBody>
-                        <Toc externalAction={onClose}/>
-                    </DrawerBody>
-
-                </DrawerContent>
-            </Drawer></>
-    );
+  return (
+    <>
+      <Box
+        width={"46px"}
+        height={"46px"}
+        top={4}
+        right={0}
+        background={buttonBackground}
+        position={"fixed"}
+        onClick={onOpen}
+        borderRadius={"30px 0 0 30px"}
+        transition={"0.3s ease all"}
+        _hover={{
+          background: "brand.main",
+          right: "-4px",
+          cursor: "pointer",
+          color: "white",
+        }}
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        zIndex={3}
+      >
+        <TiBook size={26} />
+      </Box>
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose} size={"lg"}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton
+            _hover={{
+              background: "none",
+              transform: "scale(1.3) rotate(180deg)",
+            }}
+          />
+          <DrawerHeader>Table of Contents</DrawerHeader>
+          <DrawerBody display="flex" alignItems={"center"}>
+            <Toc externalAction={onClose} showCount={false} compact />
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
 }
 
 export default TocDrawer;
