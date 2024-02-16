@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 const useViewerStore = create(
   persist(
     (set: any, get: any) => ({
@@ -30,7 +30,7 @@ const useViewerStore = create(
       },
     }),
     {
-      name: "viewer-storage", // name of the item in the storage (must be unique)
+      name: "viewer-storage",
     }
   )
 );
