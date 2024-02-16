@@ -9,9 +9,8 @@ const Home = () => {
     navigate("/toc");
   };
   const [textHovered, setTextHovered] = useState(false);
-
   return (
-    <div>
+    <>
       <Box
         minHeight={"50vh"}
         fontSize={100}
@@ -26,6 +25,7 @@ const Home = () => {
           setTextHovered(false);
         }}
         position={"relative"}
+        fontWeight={"bold"}
       >
         <Box
           width={"100%"}
@@ -91,7 +91,7 @@ const Home = () => {
           </Box>
         </Button>
       </Container>
-    </div>
+    </>
   );
 };
 
