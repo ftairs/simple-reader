@@ -74,7 +74,6 @@ const Home = () => {
         </Box>
       </Box>
       <Container variant={"basic"} pb={10}>
-        <Heading mb={4}>
           Simple Reader
           <small>- E.A. Poe Edition</small>
         </Heading>
