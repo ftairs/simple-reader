@@ -118,7 +118,7 @@ function MenuDrawer() {
           <DrawerFooter flexDir={"column"}>
             <Box
               as={Link}
-              to={"https://github.com/ftairs"}
+              to={"https://github.com/ftairs/simple-reader"}
               target="_blank"
               display="flex"
               alignItems={"center"}
