@@ -19,6 +19,7 @@ function Toc({ externalAction, showCount, compact }: any) {
   const viewState = useViewerStore((state: any) => state);
   const [tocBook, setTocBook] = useState<string>(viewState.bookId);
   const navigate = useNavigate();
+  const [hoverIndex, setHoverIndex] = useState<number | undefined>(undefined);
 
   const books = getBooks();
   const chapters = getChapterNames({ storyId: tocBook });
@@ -107,21 +108,26 @@ function Toc({ externalAction, showCount, compact }: any) {
                   }}
                   display={compact ? "flex" : "block"}
                   alignItems={compact ? "center" : undefined}
+                  onMouseOver={() => {
+                    setHoverIndex(index);
+                  }}
+                  onMouseOut={() => {
+                    setHoverIndex(undefined);
+                  }}
                 >
                   <Box
                     fontSize="small"
                     fontWeight={"bold"}
                     mr={compact ? 2 : 0}
-                    opacity={0.5}
-                    _hover={{
-                      color: "brand.main",
-                    }}
+                    color={hoverIndex === index ? "brand.main" : undefined}
                   >
                     {!compact
                       ? `Chapter ${getChapterIndex(index)}`
                       : `Ch.${getChapterIndex(index)}`}
                   </Box>
-                  <Box fontSize="large">{item}</Box>
+                  <Box fontSize="large" textTransform={"capitalize"}>
+                    {item}
+                  </Box>
                 </GridItem>
               );
             })}

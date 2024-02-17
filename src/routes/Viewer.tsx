@@ -3,6 +3,7 @@ import RelatedContent from "../components/RelatedContent";
 import getStory from "../utils/getStory";
 import Controls from "../components/Controls";
 import useViewerStore from "../store/ViewerStore";
+import homeBG from "../assets/image/home-bg.jpg";
 
 function Viewer() {
   const viewerStore = useViewerStore((state: any) => state);
@@ -18,7 +19,22 @@ function Viewer() {
           background={headerBg}
           textAlign={"center"}
           fontSize={60}
+          position={"relative"}
+          overflow={"hidden"}
         >
+          <Box
+            position={"absolute"}
+            top="0"
+            left="0"
+            width="100%"
+            height="100%"
+            zIndex={0}
+            backgroundImage={homeBG}
+            backgroundSize="cover"
+            backgroundRepeat={"no-repeat"}
+            backgroundPosition={"center center"}
+            opacity={0.25}
+          ></Box>
           <Container variant={"basic"}>
             {storyData && storyData.title}
           </Container>
