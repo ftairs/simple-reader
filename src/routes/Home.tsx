@@ -74,20 +74,21 @@ const Home = () => {
         </Box>
       </Box>
       <Container variant={"basic"} pb={10}>
-        <Heading>
+        <Heading fontSize={42} mb={4}>
           Simple Reader
-          <small>- E.A. Poe Edition</small>
+          <Box fontSize={24} color={"brand.main"}>
+            E.A. Poe Edition
+          </Box>
         </Heading>
         <Text mb={4}>
-          This reader uses scraped text from Project Gutenberg using{" "}
-          <Link href="https://gutendex.com/">Gutendex</Link> to gather the
-          needed ids. It's not continually scraped but stored as a JSON file,
-          then loaded into this app.
+          Simple Reader is a for-fun project created to experiement in scraping,
+          compiling and using data. The data comes from Project Gutenberg,
+          scraped and compiled in NodeJS and then presented in this Reactjs app.
         </Text>
         <Button variant={"branded"} onClick={handleOpenToc}>
           Start Reading Now
           <Box display="inline" marginLeft={12}>
-            <TiArrowRight />
+            <TiArrowRight size={42} />
           </Box>
         </Button>
       </Container>
