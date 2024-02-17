@@ -56,6 +56,9 @@ export const theme = extendTheme({
         fontFamily: "serif",
         marginY: 8,
       },
+      ".js-view p.letter": {
+        fontFamily: "script",
+      },
       ".js-view h3": {
         fontWeight: "bold",
         marginBottom: "8px",

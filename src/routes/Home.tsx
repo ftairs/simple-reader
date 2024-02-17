@@ -2,6 +2,8 @@ import { Box, Button, Container, Heading, Link, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { TiArrowRight } from "react-icons/ti";
 import { useState } from "react";
+import homeBG from "../assets/image/home-bg.jpg";
+import optVideo from "../assets/video/opt-video.mp4";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -10,7 +12,35 @@ const Home = () => {
   };
   const [textHovered, setTextHovered] = useState(false);
   return (
-    <>
+    <Box>
+      <Box
+        position={"fixed"}
+        top="0"
+        left="0"
+        width="100%"
+        height="100%"
+        zIndex={0}
+        backgroundImage={homeBG}
+        backgroundSize="cover"
+        backgroundRepeat={"no-repeat"}
+        backgroundPosition={"center center"}
+        opacity={0.25}
+      ></Box>
+      <video
+        autoPlay
+        loop
+        muted
+        style={{
+          position: "fixed",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: "0",
+          opacity: "25%",
+        }}
+      >
+        <source src={optVideo} type="video/mp4" />{" "}
+      </video>
       <Box
         minHeight={"50vh"}
         fontSize={100}
@@ -73,7 +103,7 @@ const Home = () => {
           E.A.Poe-E.A.Poe-E.A.Poe-E.A.Poe-E.A.Poe
         </Box>
       </Box>
-      <Container variant={"basic"} pb={10}>
+      <Container variant={"basic"} pb={10} position={"relative"} zIndex={2}>
         <Heading fontSize={42} mb={4}>
           Simple Reader
           <Box fontSize={24} color={"brand.main"}>
@@ -92,7 +122,7 @@ const Home = () => {
           </Box>
         </Button>
       </Container>
-    </>
+    </Box>
   );
 };
 
