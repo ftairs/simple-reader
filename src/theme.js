@@ -26,7 +26,7 @@ export const theme = extendTheme({
         branded: {
           bg: config.brandColor,
           paddingX: 10,
-          paddingY: 6,
+          paddingY: 8,
           borderRadius: 100,
           color: "white",
           fontSize: 22,
