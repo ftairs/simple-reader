@@ -58,7 +58,7 @@ function MenuDrawer() {
         borderRadius={"0 30px 30px 0"}
         transition={"0.3s ease all"}
         _hover={{
-          background: "brand.main",
+          bgGradient: `linear(to-br,#fc5603 , #fc9803)`,
           left: "-4px",
           cursor: "pointer",
           color: "white",
@@ -81,7 +81,14 @@ function MenuDrawer() {
               transform: "scale(1.3) rotate(180deg)",
             }}
           />
-          <DrawerHeader bg="brand.main" paddingY={10} color="white" mb={10}>
+          <DrawerHeader
+            bg="brand.main"
+            bgGradient={`linear(to-br,#fc5603 , #fc9803)`}
+            paddingY={10}
+            color="white"
+            mb={10}
+            fontFamily={"heading"}
+          >
             Simple Reader v2 <br />
             <small>E.A. Poe Edition</small>
           </DrawerHeader>
@@ -99,6 +106,7 @@ function MenuDrawer() {
                         onClick={onClose}
                         fontSize={20}
                         _hover={{ color: "brand.main" }}
+                        fontFamily={"heading"}
                       >
                         <Link
                           to={item.to}
@@ -137,7 +145,9 @@ function MenuDrawer() {
                 <TiArrowRight />
               </Box>
             </Box>
-            Created by Victor Fuentes - 2024
+            <Box fontSize="small" opacity={0.5}>
+              Created by Victor Fuentes - 2024
+            </Box>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

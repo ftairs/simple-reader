@@ -74,9 +74,10 @@ function Toc({ externalAction, showCount, compact }: any) {
       </Select>
 
       <Grid
-        templateColumns={`repeat(${compact ? 1 : 2}, ${
-          compact ? "100%" : "50%"
-        })`}
+        templateColumns={{
+          base: `repeat(1, 100%)`,
+          lg: `repeat(${compact ? 1 : 2}, ${compact ? "100%" : "50%"})`,
+        }}
         gap={4}
         mb={4}
       >
@@ -120,6 +121,7 @@ function Toc({ externalAction, showCount, compact }: any) {
                     fontWeight={"bold"}
                     mr={compact ? 2 : 0}
                     color={hoverIndex === index ? "brand.main" : undefined}
+                    fontFamily={"heading"}
                   >
                     {!compact
                       ? `Chapter ${getChapterIndex(index)}`

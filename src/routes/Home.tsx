@@ -26,7 +26,7 @@ const Home = () => {
         backgroundPosition={"center center"}
         opacity={0.25}
       ></Box>
-      <video
+      {/* <video
         autoPlay
         loop
         muted
@@ -40,7 +40,7 @@ const Home = () => {
         }}
       >
         <source src={optVideo} type="video/mp4" />{" "}
-      </video>
+      </video> */}
       <Box
         minHeight={"50vh"}
         fontSize={100}
