@@ -29,7 +29,7 @@ function TocDrawer() {
         borderRadius={"30px 0 0 30px"}
         transition={"0.3s ease all"}
         _hover={{
-          background: "brand.main",
+          bgGradient: `linear(to-br,#fc5603 , #fc9803)`,
           right: "-4px",
           cursor: "pointer",
           color: "white",
@@ -50,7 +50,7 @@ function TocDrawer() {
               transform: "scale(1.3) rotate(180deg)",
             }}
           />
-          <DrawerHeader>Table of Contents</DrawerHeader>
+          <DrawerHeader fontFamily={"heading"}>Table of Contents</DrawerHeader>
           <DrawerBody display="flex" alignItems={"center"}>
             <Toc externalAction={onClose} showCount={false} compact />
           </DrawerBody>

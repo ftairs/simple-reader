@@ -16,7 +16,8 @@ function Viewer() {
         <Heading
           marginBottom={10}
           paddingY={40}
-          background={headerBg}
+          backgroundColor={headerBg}
+          bgGradient={`linear(to-br,#fc5603 , #fc9803)`}
           textAlign={"center"}
           fontSize={60}
           position={"relative"}
