@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Box, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import {
@@ -17,19 +16,27 @@ function Controls() {
   const barBg = useColorModeValue("gray.100", "black");
   const [hideControls, setHideControls] = useState(false);
 
-  const controls : ControlType[] = [
+  const controls: ControlType[] = [
     {
       label: "Scroll Down",
       icon: <TiArrowDown size={32} />,
       action: () => {
-        window.scrollTo(0, window.scrollY + 100);
+        window.scrollTo({
+          left: 0,
+          top: window.scrollY + 100,
+          behavior: "smooth",
+        });
       },
     },
     {
       label: "Scroll Up",
       icon: <TiArrowUp size={32} />,
       action: () => {
-        window.scrollTo(0, window.scrollY - 100);
+        window.scrollTo({
+          left: 0,
+          top: window.scrollY - 100,
+          behavior: "smooth",
+        });
       },
     },
     {
@@ -51,13 +58,11 @@ function Controls() {
       icon: <TiZoomOut size={32} />,
       action: () => {
         viewerStore.decreaseZoomLevel();
-
       },
     },
   ];
   return (
     <Box
-
       background={barBg}
       width={"100%"}
       position={"fixed"}
