@@ -31,7 +31,7 @@ const Home = () => {
         wordBreak={"break-all"}
         overflow={"hidden"}
         aria-hidden
-        opacity={0.5}
+        opacity={0.25}
         onMouseOver={() => {
           setTextHovered(true);
         }}
