@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { TiArrowRight } from "react-icons/ti";
 import { useState } from "react";
 import homeBG from "../assets/image/home-bg.jpg";
-import optVideo from "../assets/video/opt-video.mp4";
 
 const Home = () => {
   const navigate = useNavigate();
