@@ -21,14 +21,22 @@ function Controls() {
       label: "Scroll Down",
       icon: <TiArrowDown size={32} />,
       action: () => {
-        window.scrollTo(0, window.scrollY + 100);
+        window.scrollTo({
+          left: 0,
+          top: window.scrollY + 100,
+          behavior: "smooth",
+        });
       },
     },
     {
       label: "Scroll Up",
       icon: <TiArrowUp size={32} />,
       action: () => {
-        window.scrollTo(0, window.scrollY - 100);
+        window.scrollTo({
+          left: 0,
+          top: window.scrollY - 100,
+          behavior: "smooth",
+        });
       },
     },
     {
