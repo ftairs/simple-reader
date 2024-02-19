@@ -26,21 +26,6 @@ const Home = () => {
         backgroundPosition={"center center"}
         opacity={0.25}
       ></Box>
-      <video
-        autoPlay
-        loop
-        muted
-        style={{
-          position: "fixed",
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: "0",
-          opacity: "25%",
-        }}
-      >
-        <source src={optVideo} type="video/mp4" />{" "}
-      </video>
       <Box
         minHeight={"50vh"}
         fontSize={100}

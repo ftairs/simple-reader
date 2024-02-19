@@ -74,9 +74,10 @@ function Toc({ externalAction, showCount, compact }: any) {
       </Select>
 
       <Grid
-        templateColumns={`repeat(${compact ? 1 : 2}, ${
-          compact ? "100%" : "50%"
-        })`}
+        templateColumns={{
+          base: `repeat(1, 100%)`,
+          lg: `repeat(${compact ? 1 : 2}, ${compact ? "100%" : "50%"})`,
+        }}
         gap={4}
         mb={4}
       >
@@ -103,7 +104,6 @@ function Toc({ externalAction, showCount, compact }: any) {
                   _hover={{
                     cursor: "pointer",
                     background: "gray.100",
-                    fontStyle: "italic",
                     bg: hoverBgColor,
                   }}
                   display={compact ? "flex" : "block"}
@@ -125,7 +125,11 @@ function Toc({ externalAction, showCount, compact }: any) {
                       ? `Chapter ${getChapterIndex(index)}`
                       : `Ch.${getChapterIndex(index)}`}
                   </Box>
-                  <Box fontSize="large" textTransform={"capitalize"}>
+                  <Box
+                    fontFamily={"heading"}
+                    fontSize="large"
+                    textTransform={"capitalize"}
+                  >
                     {item}
                   </Box>
                 </GridItem>

@@ -63,7 +63,7 @@ function Controls() {
   ];
   return (
     <Box
-      background={barBg}
+      backgroundColor={barBg}
       width={"100%"}
       position={"fixed"}
       left={0}
@@ -116,7 +116,11 @@ function Controls() {
             paddingX={4}
             borderRadius={10}
             userSelect={"none"}
-            _hover={{ background: "brand.main", color: "white" }}
+            _hover={{
+              backgroundColor: "brand.main",
+              bgGradient: `linear(to-br,#fc5603 , #fc9803)`,
+              color: "white",
+            }}
           >
             <Box>{item.icon}</Box>
           </Box>
