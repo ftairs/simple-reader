@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { theme } from "./theme.js";
@@ -36,6 +36,9 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  useEffect(() => {
+    document.title = "Simple Reader";
+  }, []);
   return (
     <ChakraProvider theme={theme}>
       <RouterProvider router={router} />
