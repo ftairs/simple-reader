@@ -104,7 +104,6 @@ function Toc({ externalAction, showCount, compact }: any) {
                   _hover={{
                     cursor: "pointer",
                     background: "gray.100",
-                    fontStyle: "italic",
                     bg: hoverBgColor,
                   }}
                   display={compact ? "flex" : "block"}
@@ -121,13 +120,16 @@ function Toc({ externalAction, showCount, compact }: any) {
                     fontWeight={"bold"}
                     mr={compact ? 2 : 0}
                     color={hoverIndex === index ? "brand.main" : undefined}
-                    fontFamily={"heading"}
                   >
                     {!compact
                       ? `Chapter ${getChapterIndex(index)}`
                       : `Ch.${getChapterIndex(index)}`}
                   </Box>
-                  <Box fontSize="large" textTransform={"capitalize"}>
+                  <Box
+                    fontFamily={"heading"}
+                    fontSize="large"
+                    textTransform={"capitalize"}
+                  >
                     {item}
                   </Box>
                 </GridItem>
