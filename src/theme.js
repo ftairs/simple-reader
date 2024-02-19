@@ -2,13 +2,19 @@ import { extendTheme } from "@chakra-ui/react";
 
 const config = {
   brandColor: "#fc5603",
+  brandGrade: `linear(to-br,#fc5603 , #fc9803)`,
 };
 
 export const theme = extendTheme({
   initialColorMode: "light",
+  fonts: {
+    heading: `'Merriweather', sans-serif`,
+    body: `'Lato', sans-serif`,
+  },
   colors: {
     brand: {
       main: config.brandColor,
+      grade: config.brandGrade,
     },
   },
   components: {
@@ -25,6 +31,7 @@ export const theme = extendTheme({
       variants: {
         branded: {
           bg: config.brandColor,
+          bgGradient: config.brandGrade,
           paddingX: 10,
           paddingY: 8,
           borderRadius: 100,
@@ -36,10 +43,10 @@ export const theme = extendTheme({
   },
   styles: {
     global: {
-      "html, body": {
-        fontFamily: "Helvetica, sans-serif",
-      },
       ".js-view": {},
+      ".js-view pre": {
+        whiteSpace: "pre-line",
+      },
       ".js-view p": {
         marginBottom: 8,
         textIndent: "24px",
