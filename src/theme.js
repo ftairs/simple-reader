@@ -40,6 +40,9 @@ export const theme = extendTheme({
         fontFamily: "Helvetica, sans-serif",
       },
       ".js-view": {},
+      ".js-view pre": {
+        whiteSpace: "pre-line",
+      },
       ".js-view p": {
         marginBottom: 8,
         textIndent: "24px",
