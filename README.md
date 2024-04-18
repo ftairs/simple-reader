@@ -24,7 +24,6 @@ Things Used:
 - Zustand
 - Context API (converted to Zustand)
 - Jest
-- HTML5 Video
 - Netlify for deployment
 - Google fonts (Lato | Merriweather)
 
