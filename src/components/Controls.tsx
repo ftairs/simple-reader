@@ -10,6 +10,10 @@ import {
 } from "react-icons/ti";
 import useViewerStore from "../store/ViewerStore";
 import ControlType from "../types/ControlType";
+
+// TODO: v1.5 automated scrolling, single speed
+// TODO: v2 multiple speeds for scrolling
+
 function Controls() {
   const viewerStore = useViewerStore((store: any) => store);
   const { toggleColorMode } = useColorMode();

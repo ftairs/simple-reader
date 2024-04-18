@@ -15,6 +15,8 @@ import getChapterNames from "../utils/getChapterNames";
 import { useNavigate } from "react-router-dom";
 import useViewerStore from "../store/ViewerStore";
 
+// TODO: v1.5 rework mobile breakdown
+
 function Toc({ externalAction, showCount, compact }: any) {
   const viewState = useViewerStore((state: any) => state);
   const [tocBook, setTocBook] = useState<string>(viewState.bookId);
@@ -91,9 +93,7 @@ function Toc({ externalAction, showCount, compact }: any) {
               return (
                 <GridItem
                   key={index + 1}
-                  onClick={() => {
-                    handleChapterClick(index);
-                  }}
+                  onClick={() => handleChapterClick(index)}
                   margin="0"
                   padding="0"
                   overflowWrap={"break-word"}

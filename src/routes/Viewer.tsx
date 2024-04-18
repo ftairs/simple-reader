@@ -5,6 +5,8 @@ import Controls from "../components/Controls";
 import useViewerStore from "../store/ViewerStore";
 import homeBG from "../assets/image/home-bg.jpg";
 
+// TODO: v2 implement more metadata, which is already there
+
 function Viewer() {
   const viewerStore = useViewerStore((state: any) => state);
   let storyData = getStory(viewerStore.bookId, viewerStore.storyIndex);
