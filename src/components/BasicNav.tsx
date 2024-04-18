@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+// TODO: v2.5 add support for HPL collection switching6
+
 function BasicNav() {
   return (
     <div>

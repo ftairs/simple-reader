@@ -1,8 +1,11 @@
-import { Box, Button, Container, Heading, Link, Text } from "@chakra-ui/react";
+import { Box, Button, Container, Heading, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { TiArrowRight } from "react-icons/ti";
 import { useState } from "react";
 import homeBG from "../assets/image/home-bg.jpg";
+
+// TODO: v2 replace text with 3d content
+// TODO: v1.5 better background image
 
 const Home = () => {
   const navigate = useNavigate();
@@ -59,6 +62,8 @@ const Home = () => {
           display="flex"
           alignItems={"center"}
           justifyContent={"center"}
+          background={`linear-gradient(20deg,#fc5603 , #fc9803)`}
+          backgroundClip={"text"}
         >
           E.A.Poe-E.A.Poe-E.A.Poe-E.A.Poe-E.A.Poe
         </Box>
@@ -71,6 +76,8 @@ const Home = () => {
           display="flex"
           alignItems={"center"}
           justifyContent={"center"}
+          background={`linear-gradient(20deg,#fc5603 , #fc9803)`}
+          backgroundClip={"text"}
         >
           E.A.Poe-E.A.Poe-E.A.Poe-E.A.Poe-E.A.Poe
         </Box>
@@ -79,10 +86,12 @@ const Home = () => {
           position="relative"
           left={textHovered ? -5 : 0}
           transition={"0.5s ease all"}
-          maxWidth={"80vw"}
+          maxWidth={"100%"}
           display="flex"
           alignItems={"center"}
           justifyContent={"center"}
+          background={`linear-gradient(20deg,#fc5603 , #fc9803)`}
+          backgroundClip={"text"}
         >
           E.A.Poe-E.A.Poe-E.A.Poe-E.A.Poe-E.A.Poe
         </Box>
